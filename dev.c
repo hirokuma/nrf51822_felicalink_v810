@@ -125,6 +125,9 @@
 /* Advertisingタイムアウト時間[sec単位] */
 #define APP_ADV_TIMEOUT_IN_SECONDS      (60)
 
+//#define APP_ADV_DISABLE_CH37
+//#define APP_ADV_DISABLE_CH38
+//#define APP_ADV_DISABLE_CH39
 
 
 #define GAP_USE_APPEARANCE		BLE_APPEARANCE_UNKNOWN
@@ -339,6 +342,15 @@ void ble_adv_start(void)
     adv_params.fp          = BLE_GAP_ADV_FP_ANY;
     adv_params.interval    = MSEC_TO_UNITS(APP_ADV_INTERVAL, UNIT_0_625_MS);
     adv_params.timeout     = APP_ADV_TIMEOUT_IN_SECONDS;
+#ifdef APP_ADV_DISABLE_CH37
+	adv_params.channel_mask.ch_37_off = 1;
+#endif	//APP_ADV_DISABLE_CH37
+#ifdef APP_ADV_DISABLE_CH38
+	adv_params.channel_mask.ch_38_off = 1;
+#endif	//APP_ADV_DISABLE_CH38
+#ifdef APP_ADV_DISABLE_CH39
+	adv_params.channel_mask.ch_39_off = 1;
+#endif	//APP_ADV_DISABLE_CH39
 
     err_code = sd_ble_gap_adv_start(&adv_params);
     APP_ERROR_CHECK(err_code);
